@@ -1,0 +1,143 @@
+一、 创建数据库
+
+CREATE DATABASE Test;
+
+
+
+show databases;
+
+
+
+二、创建表
+
+use Test;
+
+
+
+CREATE TABLE Student (
+
+    Sno CHAR(7),
+
+    Sname VARCHAR(20) NOT NULL,
+
+    Ssex CHAR(2),
+
+    Sbirthday DATETIME,
+
+    Sdept VARCHAR(20),
+
+    Memo VARCHAR(20),
+
+    CHECK(Ssex IN('男','女')),
+
+    PRIMARY KEY(Sno)
+
+);
+
+
+
+desc Student;
+
+
+
+CREATE TABLE Courses (
+
+    Cno CHAR(6) PRIMARY KEY,
+
+    Cname VARCHAR(20) NOT NULL,
+
+    PreCno CHAR(6),
+
+    Credict INT,
+
+    ?FOREIGN KEY(PreCno) REFERENCES Courses(Cno)
+
+);
+
+
+
+desc Courses;
+
+
+
+CREATE TABLE SC (
+
+    Sno CHAR(7),
+
+    Cno CHAR(6),
+
+    Grade INT,
+
+    ?PRIMARY KEY(Sno,Cno),
+
+    ?FOREIGN KEY(Sno) REFERENCES Student(Sno),
+
+    FOREIGN KEY(Cno) REFERENCES Courses(Cno),
+
+    ?CHECK(GRADE BETWEEN 0.0 AND 100.0)
+
+);
+
+
+
+desc SC;
+
+
+
+三、向表中插入数据
+
+INSERT INTO Student VALUES ('0602001', '钟耀华', '男', '1987-05-01', '计算机', '优秀毕业生');
+INSERT INTO Student VALUES ('0602002', '吴佳硕', '女', '1987-03-24', '计算机', '爱好:音乐');
+
+INSERT INTO Student VALUES ('0602003', '吴纯斌', '男', '1988-07-01', '计算机', NULL);
+
+INSERT INTO Student VALUES ('0701001', '王腾飞', '男', '1988-05-04', '机电', '爱好:音乐');
+
+INSERT INTO Student VALUES ('0701002', '林师微', '女', '1987-04-03', '机电', '爱好:体育');
+
+INSERT INTO Student VALUES ('0701003', '李乐怡', '女', '1986-03-03', '机电', NULL);
+
+INSERT INTO Student VALUES ('0703001', '李奇', '男', '1988-09-17', '工商管理', NULL);
+
+
+
+SELECT * from Student;
+
+
+INSERT INTO Courses VALUES ('C1', '数据结构',NULL, '4');
+INSERT INTO Courses VALUES ('C2', '数据库原理','C1', '4');
+
+INSERT INTO Courses VALUES ('C3', '大型数据库','C2', '3');
+
+INSERT INTO Courses VALUES ('C4', '高尔夫',NULL, '1');
+
+
+SELECT * from Courses;
+
+
+
+INSERT INTO SC VALUES ('0602001', 'C1', '61');
+
+INSERT INTO SC VALUES ('0602001', 'C2', '72');
+
+INSERT INTO SC VALUES ('0602001', 'C3', '88');
+
+INSERT INTO SC VALUES ('0602002', 'C1', NULL);
+
+INSERT INTO SC VALUES ('0602002', 'C2', '61');
+
+INSERT INTO SC VALUES ('0701001', 'C1', '50');
+
+INSERT INTO SC VALUES ('0701001', 'C2', NULL);
+
+INSERT INTO SC VALUES ('0701002', 'C3', '78');
+
+INSERT INTO SC VALUES ('0701003', 'C1', '52');
+
+INSERT INTO SC VALUES ('0701003', 'C3', '87');
+
+
+
+SELECT * from SC;
+
+?
